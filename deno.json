@@ -5,7 +5,8 @@
         ".": "./mod.ts",
         "./env.deno": "./env.deno.ts",
         "./env.node": "./env.node.ts",
-        "./env.browser": "./env.browser.ts"
+        "./env.browser": "./env.browser.ts",
+        "./constants": "./constants.ts"
     },
     "compilerOptions": {
         "lib": ["deno.ns", "deno.unstable", "dom"]
@@ -29,6 +30,8 @@
             "env.deno.ts",
             "env.node.ts",
             "env.browser.ts",
+            "constants.ts",
+            "expand.ts",
             "types.ts",
             "README.md",
             "LICENSE.md",
@@ -36,5 +39,8 @@
         ]
     },
     "imports": {
+        "@gnome/char": "jsr:@gnome/char@^0.0.0",
+        "@gnome/os-constants": "jsr:@gnome/os-constants@^0.0.0",
+        "@gnome/strings": "jsr:@gnome/strings@^0.1.0"
     }
 }

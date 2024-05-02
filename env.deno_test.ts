@@ -1,9 +1,22 @@
 import { env } from "./env.deno.ts";
-import { assert as ok, assertEquals as equals, assertFalse as no } from "jsr:@std/assert@^0.224.0";
+import { assert as ok, assertEquals as equals, assertFalse as no, assertThrows } from "jsr:@std/assert@^0.224.0";
 
 Deno.test("deno env.get", () => {
     env.set("DENO_TEST_1", "value");
     equals(env.get("DENO_TEST_1"), "value");
+});
+
+Deno.test("deno env.expand", () => {
+    env.set("NAME", "Alice");
+    equals(env.expand("Hello, ${NAME}! You are ${AGE:-30} years old."), "Hello, Alice! You are 30 years old.");
+    equals(env.expand("HELLO, %NAME%!"), "HELLO, Alice!");
+
+    env.expand("${AGE_NEXT:=30}");
+    equals(env.get("AGE_NEXT"), "30");
+
+    assertThrows(() => {
+        env.expand("${AGE_NEXT2:?Missing environment variable AGE_NEXT2}");
+    }, "Missing environment variable AGE_NEXT2");
 });
 
 Deno.test("deno env.has", () => {

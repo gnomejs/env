@@ -1,4 +1,5 @@
-import { Env } from "./types.ts";
+import { expand } from "./expand.ts";
+import type { Env, EnvPath, SubstitutionOptions } from "./types.ts";
 
 // deno-lint-ignore no-explicit-any
 const g = globalThis as any;
@@ -15,7 +16,7 @@ const PATH_VAR = WIN ? "Path" : "PATH";
 /**
  * Represents a class that manages the environment path.
  */
-class EnvPath implements EnvPath {
+class DenoEnvPath implements EnvPath {
     /**
      * Retrieves the current environment path.
      * @returns The current environment path.
@@ -178,7 +179,30 @@ class DenoEnv implements Env {
      * Returns the `EnvPath` instance associated with this `Env` object.
      */
     get path(): EnvPath {
-        return this.#path ??= new EnvPath();
+        return this.#path ??= new DenoEnvPath();
+    }
+
+    /**
+     * Expands a template string by replacing placeholders with their corresponding values.
+     *
+     * @param template The template string to expand.
+     * @param options The options for substitution.
+     * @returns The expanded string.
+     * @example
+     * ```ts
+     * import { env } from "@gnome/env";
+     *
+     * env.set("NAME", "Alice");
+     * console.log(env.expand("Hello, ${NAME}! You are ${AGE:-30} years old.")); // Hello, Alice! You are 30 years old.
+     * ```
+     */
+    expand(template: string, options?: SubstitutionOptions): string {
+        return expand(
+            template,
+            (name: string) => this.get(name),
+            (name: string, value: string) => this.set(name, value),
+            options,
+        );
     }
 
     /**

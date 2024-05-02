@@ -1,5 +1,5 @@
-import { EnvPath } from "./mod.ts";
-import { Env } from "./types.ts";
+import type { Env, EnvPath, SubstitutionOptions } from "./types.ts";
+import { expand } from "./expand.ts";
 
 const envData: Record<string, undefined | string> = {};
 
@@ -132,6 +132,29 @@ class MemoryEnv implements Env {
      */
     get path(): MemoryEnvPath {
         return this.#path ??= new MemoryEnvPath();
+    }
+
+    /**
+     * Expands a template string by replacing placeholders with their corresponding values.
+     *
+     * @param template The template string to expand.
+     * @param options The options for substitution.
+     * @returns The expanded string.
+     * @example
+     * ```ts
+     * import { env } from "@gnome/env";
+     *
+     * env.set("NAME", "Alice");
+     * console.log(env.expand("Hello, ${NAME}! You are ${AGE:-30} years old.")); // Hello, Alice! You are 30 years old.
+     * ```
+     */
+    expand(template: string, options?: SubstitutionOptions): string {
+        return expand(
+            template,
+            (name: string) => this.get(name),
+            (name: string, value: string) => this.set(name, value),
+            options,
+        );
     }
 
     /**
