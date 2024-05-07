@@ -1,5 +1,5 @@
-import type { Env, EnvPath, SubstitutionOptions } from "./types.ts";
-import { expand } from "./expand.ts";
+import type { Env, EnvPath, SubstitutionOptions } from "../types.d.ts";
+import { expand } from "../expand.ts";
 
 const envData: Record<string, undefined | string> = {};
 
@@ -121,9 +121,10 @@ class MemoryEnv implements Env {
     #path?: MemoryEnvPath;
 
     /**
-     * Returns the environment variables as a record of key-value pairs.
+     * Returns a proxy object that allows you to access, set, or delete 
+     * environment variables as properties.
      */
-    get values(): Record<string, string | undefined> {
+    get proxy(): Record<string, string | undefined> {
         return envData;
     }
 

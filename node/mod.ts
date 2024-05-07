@@ -1,6 +1,6 @@
 import process from "node:process";
-import type { Env, EnvPath, SubstitutionOptions } from "./types.ts";
-import { expand } from "./expand.ts";
+import type { Env, EnvPath, SubstitutionOptions } from "../types.d.ts";
+import { expand } from "../expand.ts";
 // deno-lint-ignore no-explicit-any
 const g = globalThis as any;
 const proc = g.process;
@@ -141,9 +141,10 @@ class NodeEnv implements Env {
     #path?: NodeEnvPath;
 
     /**
-     * Returns the environment variables as a record of key-value pairs.
+     * Returns a proxy object that allows you to access, set, or delete 
+     * environment variables as properties.
      */
-    get values(): Record<string, string | undefined> {
+    get proxy(): Record<string, string | undefined> {
         return proc.env;
     }
 

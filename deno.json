@@ -1,11 +1,11 @@
 {
     "name": "@gnome/env",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "exports": {
         ".": "./mod.ts",
-        "./env.deno": "./env.deno.ts",
-        "./env.node": "./env.node.ts",
-        "./env.browser": "./env.browser.ts",
+        "./deno": "./deno/mod.ts",
+        "./node": "./node/mod.ts",
+        "./browser": "./browser/mod.ts",
         "./constants": "./constants.ts"
     },
     "compilerOptions": {
@@ -27,12 +27,12 @@
     "publish": {
         "include": [
             "mod.ts",
-            "env.deno.ts",
-            "env.node.ts",
-            "env.browser.ts",
+            "deno/mod.ts",
+            "node/mod.ts",
+            "browser/mod.ts",
             "constants.ts",
             "expand.ts",
-            "types.ts",
+            "types.d.ts",
             "README.md",
             "LICENSE.md",
             "deno.json"

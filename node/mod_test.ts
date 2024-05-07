@@ -5,7 +5,7 @@ import process from "node:process";
 const g = globalThis as any;
 g.process = process;
 
-const env = (await import("./env.node.ts")).env;
+const env = (await import("./mod.ts")).env;
 
 Deno.test("node env.get", () => {
     env.set("NODE_TEST_1", "value");

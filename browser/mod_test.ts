@@ -1,4 +1,4 @@
-import { env } from "./env.browser.ts";
+import { env } from "./mod.ts";
 import { assert as ok, assertEquals as equals, assertFalse as no, assertThrows } from "jsr:@std/assert@^0.224.0";
 
 Deno.test("browser env.get", () => {

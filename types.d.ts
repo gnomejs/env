@@ -104,7 +104,7 @@ export interface Env extends Iterable<{ key: string; value: string }> {
     /**
      * Returns the environment variables as a record of key-value pairs.
      */
-    get values(): Record<string, string | undefined>;
+    get proxy(): Record<string, string | undefined>;
 
     /**
      * Returns the `EnvPath` instance associated with this `Env` object.

@@ -69,18 +69,18 @@
  * ```
  * @module
  */
-import type { Env, EnvPath } from "./types.ts";
+import type { Env, EnvPath } from "./types.d.ts";
 export * from "./constants.ts";
 // deno-lint-ignore no-explicit-any
 const g = globalThis as any;
 let env: Env;
 
 if (g.process) {
-    env = (await import("./env.node.ts")).env;
+    env = (await import("./node/mod.ts")).env;
 } else if (g.Deno) {
-    env = (await import("./env.deno.ts")).env;
+    env = (await import("./deno/mod.ts")).env;
 } else {
-    env = (await import("./env.browser.ts")).env;
+    env = (await import("./browser/mod.ts")).env;
 }
 
 export { type Env, env, type EnvPath };

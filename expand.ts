@@ -1,6 +1,6 @@
 import { StringBuilder } from "@gnome/strings";
 import { CHAR_BACKWARD_SLASH, CHAR_PERCENT, CHAR_UNDERSCORE } from "jsr:@gnome/char@^0.0.0/constants";
-import type { SubstitutionOptions } from "./types.ts";
+import type { SubstitutionOptions } from "./types.d.ts";
 
 enum TokenKind {
     None,
